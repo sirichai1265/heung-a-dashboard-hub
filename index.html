@@ -1,0 +1,298 @@
+<title>HEUNG-A LINE Dashboard Hub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&family=Roboto+Mono:wght@400;500;600&display=swap">
+<style>
+  :root{
+    --bg: #eef2f7;
+    --surface: #ffffff;
+    --surface-2: #e3eaf2;
+    --ink: #10233f;
+    --ink-dim: #5b6a80;
+    --line: #d5dee9;
+    --navy: #123a68;
+    --navy-2: #0c2846;
+    --blue: #0168b7;
+    --red: #d92b1c;
+    --red-ink: #ffffff;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg: #0a1420;
+      --surface: #101c2c;
+      --surface-2: #16243676;
+      --surface-2: #16283a;
+      --ink: #e8edf5;
+      --ink-dim: #93a3b8;
+      --line: #223349;
+      --navy: #1c4f8c;
+      --navy-2: #0e2038;
+      --blue: #4fa3e6;
+      --red: #ff5b45;
+      --red-ink: #10233f;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg: #0a1420;
+    --surface: #101c2c;
+    --surface-2: #16283a;
+    --ink: #e8edf5;
+    --ink-dim: #93a3b8;
+    --line: #223349;
+    --navy: #1c4f8c;
+    --navy-2: #0e2038;
+    --blue: #4fa3e6;
+    --red: #ff5b45;
+    --red-ink: #10233f;
+  }
+
+  *{ box-sizing: border-box; }
+  body{
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Roboto", system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+  .wrap{ max-width: 980px; margin: 0 auto; padding: 0 24px 56px; }
+
+  .topbar{
+    background: var(--navy);
+    color: #fff;
+  }
+  .topbar-inner{
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 0 24px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 20px;
+    font-size: 12px;
+    letter-spacing: .02em;
+    font-weight: 500;
+  }
+  .topbar-inner span{ opacity: .85; }
+
+  .masthead{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 26px 0 20px;
+    flex-wrap: wrap;
+  }
+  .brand{ display: flex; align-items: center; gap: 12px; }
+  .brand-badge{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 46px;
+    height: 30px;
+    border-radius: 15px;
+    background: linear-gradient(180deg, var(--red), #a81c11);
+    color: var(--red-ink);
+    font-weight: 900;
+    font-size: 13px;
+    letter-spacing: .01em;
+    box-shadow: inset 0 -2px 3px rgba(0,0,0,.25), inset 0 1px 1px rgba(255,255,255,.4);
+    flex: none;
+  }
+  .brand-word{ line-height: 1.15; }
+  .brand-word .en{
+    font-size: 21px;
+    font-weight: 900;
+    color: var(--blue);
+    letter-spacing: -0.01em;
+  }
+  .brand-word .th{
+    font-size: 11.5px;
+    color: var(--ink-dim);
+    font-weight: 500;
+    margin-top: 1px;
+  }
+  .masthead .stamp{
+    font-family: "Roboto Mono", monospace;
+    font-size: 12px;
+    color: var(--ink-dim);
+    text-align: right;
+    line-height: 1.6;
+    white-space: nowrap;
+  }
+
+  .hub-label{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 26px;
+  }
+  .hub-label::before{
+    content: "";
+    width: 4px;
+    height: 22px;
+    background: var(--red);
+    border-radius: 2px;
+  }
+  .hub-label h1{
+    font-size: clamp(20px, 3vw, 25px);
+    font-weight: 700;
+    margin: 0;
+    color: var(--ink);
+  }
+
+  .grid{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+  @media (max-width: 700px){ .grid{ grid-template-columns: 1fr; } }
+
+  .card{
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-top: 3px solid var(--navy);
+    border-radius: 3px;
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    color: var(--ink);
+    overflow: hidden;
+    transition: border-color .15s ease, transform .15s ease, box-shadow .15s ease;
+  }
+  .card:hover{ border-top-color: var(--blue); transform: translateY(-2px); box-shadow: 0 10px 24px -14px rgba(16,35,63,.35); }
+  .card:focus-visible{ outline: 3px solid var(--blue); outline-offset: 2px; }
+
+  .card .tag{
+    font-family: "Roboto Mono", monospace;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    padding: 12px 20px 0;
+    color: var(--blue);
+  }
+
+  .card .body{ padding: 8px 20px 22px; flex: 1; display: flex; flex-direction: column; gap: 14px; }
+  .card h2{
+    font-size: 21px;
+    font-weight: 700;
+    margin: 0;
+    color: var(--navy);
+    text-wrap: balance;
+  }
+  :root[data-theme="dark"] .card h2{ color: var(--blue); }
+  @media (prefers-color-scheme: dark){ :root:not([data-theme="light"]) .card h2{ color: var(--blue); } }
+
+  .card .desc{ font-size: 13.5px; color: var(--ink-dim); line-height: 1.55; margin: 0; }
+
+  .stats{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-top: auto;
+    padding-top: 14px;
+    border-top: 1px solid var(--line);
+  }
+  .stat .n{
+    font-family: "Roboto Mono", monospace;
+    font-size: 20px;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    color: var(--ink);
+  }
+  .stat .l{ font-size: 11px; color: var(--ink-dim); margin-top: 2px; }
+
+  .card .go{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 12.5px;
+    font-weight: 700;
+    color: #fff;
+    background: var(--navy);
+    padding: 12px 20px;
+    letter-spacing: .02em;
+  }
+  .card .go svg{ width: 14px; height: 14px; transition: transform .15s ease; }
+  .card:hover .go{ background: var(--blue); }
+  .card:hover .go svg{ transform: translateX(3px); }
+
+  footer{
+    margin-top: 32px;
+    padding-top: 16px;
+    border-top: 1px solid var(--line);
+    font-size: 12px;
+    color: var(--ink-dim);
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  footer code{
+    font-family: "Roboto Mono", monospace;
+    background: var(--surface-2);
+    padding: 2px 6px;
+    border-radius: 3px;
+  }
+</style>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <span>Internal Operations</span>
+    <span>E-Service</span>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="masthead">
+    <div class="brand">
+      <span class="brand-badge">HAL</span>
+      <div class="brand-word">
+        <div class="en">HEUNG-A LINE</div>
+        <div class="th">興亞 LINE 株式會社 · Container Operations</div>
+      </div>
+    </div>
+    <div class="stamp">อัปเดตล่าสุด<br>2026-09-12</div>
+  </div>
+
+  <div class="hub-label"><h1>Dashboard Hub — รวมลิงก์แดชบอร์ด</h1></div>
+
+  <div class="grid">
+    <a class="card stock" href="https://sirichai1265.github.io/hal-stock-hq-dashboard/" target="_blank" rel="noopener">
+      <div class="tag">Stock · รายวัน</div>
+      <div class="body">
+        <h2>HAL Stock HQ</h2>
+        <p class="desc">สต๊อกตู้คอนเทนเนอร์รายวัน แยก BKK/LCH — FULL INBOUND, CURRENT STOCK, BOOKING รายสัปดาห์ และช่องติดลบที่ต้องเฝ้าระวัง</p>
+        <div class="stats">
+          <div class="stat"><div class="n">1,684</div><div class="l">22GP คงคลัง BKK</div></div>
+          <div class="stat"><div class="n">2,089</div><div class="l">22GP คงคลัง LCH</div></div>
+          <div class="stat"><div class="n">252</div><div class="l">FULL INBOUND วันนี้</div></div>
+          <div class="stat"><div class="n">5</div><div class="l">ช่องติดลบ WK2</div></div>
+        </div>
+      </div>
+      <div class="go">เปิดแดชบอร์ด
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </div>
+    </a>
+
+    <a class="card booking" href="https://sirichai1265.github.io/booking-balance-dashboard/" target="_blank" rel="noopener">
+      <div class="tag">Booking · ยอดค้างรับ</div>
+      <div class="body">
+        <h2>Booking Balance Dashboard</h2>
+        <p class="desc">บุ๊คกิ้งที่ค้างรับตู้ ไล่ตาม BK No, pickup depot และโซน พร้อมกรองตามชนิดตู้และโซนที่ต้องติดตาม</p>
+        <div class="stats">
+          <div class="stat"><div class="n">100</div><div class="l">BK No ค้างรับ</div></div>
+          <div class="stat"><div class="n">221</div><div class="l">ตู้ค้างรับรวม</div></div>
+          <div class="stat"><div class="n">174</div><div class="l">ค้างรับ โซน LCH</div></div>
+          <div class="stat"><div class="n">47</div><div class="l">ค้างรับ โซน BKK</div></div>
+        </div>
+      </div>
+      <div class="go">เปิดแดชบอร์ด
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </div>
+    </a>
+  </div>
+
+  <footer>
+    <span>โฮสต์บน GitHub Pages · <code>sirichai1265.github.io</code></span>
+    <span>ตัวเลขสรุปด้านบนเป็นค่า ณ เวลาที่จัดทำหน้านี้ — เปิดลิงก์เพื่อดูข้อมูลล่าสุด</span>
+  </footer>
+</div>
