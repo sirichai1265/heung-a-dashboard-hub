@@ -254,8 +254,8 @@
 
 <script>
   const sources = [
-    { url: "https://sirichai1265.github.io/hal-stock-hq-dashboard/", pattern: /สร้างเมื่อ\s*(\d{4}-\d{2}-\d{2}\s+\d{2}:\d{2})/ },
-    { url: "https://sirichai1265.github.io/booking-balance-dashboard/", pattern: /(?:อัพเดทเมื่อ|อัปเดตเมื่อ)\s*(\d{4}-\d{2}-\d{2}\s+\d{2}:\d{2})/ }
+    { url: "https://sirichai1265.github.io/hal-stock-hq-dashboard/", pattern: /สร้างเมื่อ\s*(?:<[^>]+>)?\s*(\d{4}-\d{2}-\d{2}\s+\d{2}:\d{2})/ },
+    { url: "https://sirichai1265.github.io/booking-balance-dashboard/", pattern: /(?:อัพเดทเมื่อ|อัปเดตเมื่อ)\s*(?:<[^>]+>)?\s*(\d{4}-\d{2}-\d{2}\s+\d{2}:\d{2})/ }
   ];
   Promise.all(sources.map(s =>
     fetch(s.url).then(r => r.text()).then(html => {
