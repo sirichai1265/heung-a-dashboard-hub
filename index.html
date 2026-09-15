@@ -208,7 +208,7 @@
         <div class="th">Dashboard Hub</div>
       </div>
     </div>
-    <div class="stamp">อัปเดตล่าสุด<br>2026-09-14</div>
+    <div class="stamp">อัปเดตล่าสุด<br><span id="stamp-date">2026-09-15</span></div>
   </div>
 
   <div class="hub-label"><h1>Stock and Booking</h1></div>
@@ -251,3 +251,24 @@
     <span>ตัวเลขสรุปด้านบนเป็นค่า ณ เวลาที่จัดทำหน้านี้ — เปิดลิงก์เพื่อดูข้อมูลล่าสุด</span>
   </footer>
 </div>
+
+<script>
+  const sources = [
+    { url: "https://sirichai1265.github.io/hal-stock-hq-dashboard/", pattern: /สร้างเมื่อ\s*(\d{4}-\d{2}-\d{2}\s+\d{2}:\d{2})/ },
+    { url: "https://sirichai1265.github.io/booking-balance-dashboard/", pattern: /(?:อัพเดทเมื่อ|อัปเดตเมื่อ)\s*(\d{4}-\d{2}-\d{2}\s+\d{2}:\d{2})/ }
+  ];
+  Promise.all(sources.map(s =>
+    fetch(s.url).then(r => r.text()).then(html => {
+      const m = html.match(s.pattern);
+      return m ? new Date(m[1].replace(" ", "T")) : null;
+    }).catch(() => null)
+  )).then(dates => {
+    const valid = dates.filter(d => d instanceof Date && !isNaN(d));
+    if (!valid.length) return;
+    const latest = new Date(Math.max(...valid.map(d => d.getTime())));
+    const y = latest.getFullYear();
+    const mo = String(latest.getMonth() + 1).padStart(2, "0");
+    const d = String(latest.getDate()).padStart(2, "0");
+    document.getElementById("stamp-date").textContent = `${y}-${mo}-${d}`;
+  }).catch(() => {});
+</script>
